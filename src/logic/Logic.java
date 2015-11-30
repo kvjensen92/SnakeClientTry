@@ -13,6 +13,8 @@ public class Logic {
 	private Screen screen;
 	private User currentUser;
 	private API api;
+	private ArrayList<User> users;
+	private ArrayList<Game> games;
 
 	public Logic(){
 		screen = new Screen();
@@ -51,6 +53,29 @@ public class Logic {
 				case "Cancel":
 					screen.show("menu");
 					break;
+				case "Start game":
+					Game startGame = new Game();
+					for (Game g: games){
+						if (g.getName().equals(screen.getFindGamePanel().getSelectedGame())){
+							startGame = g;
+						}
+					}
+					Gamer opponent = new Gamer();
+					opponent.setId(currentUser.getId());
+					opponent.setControls(screen.getFindGamePanel().getDirectionsTextfield());
+					startGame.setOpponent(opponent);
+					String joinGamemessage = api.joinGame(startGame);
+					String startGamemessage = api.startGame(startGame);
+					System.out.println(startGamemessage);
+					String winnerName = "";
+					for (User u: users){
+						//TODO exception
+					if (u.getId() == Integer.parseInt(startGamemessage)){
+						winnerName = u.getUsername();
+					}
+				}
+					JOptionPane.showMessageDialog(screen, joinGamemessage+ ". The winner was:" +winnerName);
+					break;
 			}
 
 		}
@@ -78,8 +103,7 @@ public class Logic {
 			String message = api.login(currentUser);
 			if (message.equals("Login successful")){
 				screen.show("menu");
-				ArrayList<User> users = api.getUsers();
-				screen.getStartGamePanel().setUserInCombobox(users);
+
 			}
 			else JOptionPane.showMessageDialog(screen, message);
 		}
@@ -108,7 +132,12 @@ public class Logic {
 					host.setControls(screen.getStartGamePanel().getControlsToSnake());
 					startGame.setHost(host);
 					Gamer opponent = new Gamer();
-					opponent.setId(screen.getStartGamePanel().getSelectedUSer().charAt(0));
+					for (User u: users){
+						if (u.getUsername().equals(screen.getStartGamePanel().getSelectedUSer())){
+							opponent.setId(u.getId());
+						}
+					}
+
 					startGame.setOpponent(opponent);
 					String message = api.createGame(startGame);
 					JOptionPane.showMessageDialog(screen, message);
@@ -128,10 +157,14 @@ public class Logic {
 			switch (e.getActionCommand()) {
 				case "Start game":
 					screen.show("start game");
+					users = api.getUsers();
+					screen.getStartGamePanel().setUserInCombobox(users);
 					break;
 
 				case "Find game":
 					screen.show("find game");
+					games = api.getGames(currentUser.getId());
+					screen.getFindGamePanel().setGamesInCombobox(games);
 
 					break;
 

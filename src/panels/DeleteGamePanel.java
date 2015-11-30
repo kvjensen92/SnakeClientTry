@@ -11,6 +11,8 @@ import javax.swing.JComboBox;
 public class DeleteGamePanel extends JPanel {
 	private JLabel lblDeleteGame;
 	private JButton btnCancel;
+	private JComboBox comboBox;
+	private JButton btnDeleteGame;
 
 	/**
 	 * Create the panel.
@@ -27,7 +29,7 @@ public class DeleteGamePanel extends JPanel {
 		btnCancel.setBounds(310, 249, 117, 29);
 		add(btnCancel);
 		
-		JComboBox comboBox = new JComboBox();
+		comboBox = new JComboBox();
 		comboBox.setBounds(40, 105, 52, 27);
 		add(comboBox);
 		
@@ -35,7 +37,7 @@ public class DeleteGamePanel extends JPanel {
 		lblChoseAGame.setBounds(40, 77, 168, 16);
 		add(lblChoseAGame);
 		
-		JButton btnDeleteGame = new JButton("Delete game");
+		btnDeleteGame = new JButton("Delete game");
 		btnDeleteGame.setBounds(35, 144, 117, 29);
 		add(btnDeleteGame);
 	}

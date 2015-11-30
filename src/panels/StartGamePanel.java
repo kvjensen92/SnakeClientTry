@@ -29,8 +29,8 @@ public class StartGamePanel extends JPanel {
 	public StartGamePanel() {
 		setLayout(null);
 		
-		lblEnterSnakeDirections = new JLabel("2. Enter snake directions");
-		lblEnterSnakeDirections.setBounds(38, 122, 167, 16);
+		lblEnterSnakeDirections = new JLabel("2. Enter snake directions (W,A,S,D)");
+		lblEnterSnakeDirections.setBounds(38, 122, 220, 16);
 		add(lblEnterSnakeDirections);
 		
 		controlTextfield = new JTextField();
@@ -39,11 +39,11 @@ public class StartGamePanel extends JPanel {
 		controlTextfield.setColumns(10);
 		
 		comboBox = new JComboBox();
-		comboBox.setBounds(273, 60, 140, 27);
+		comboBox.setBounds(314, 60, 140, 27);
 		add(comboBox);
 		
 		lblEnterGamename = new JLabel("1. Enter game-name");
-		lblEnterGamename.setBounds(34, 40, 146, 16);
+		lblEnterGamename.setBounds(34, 40, 134, 16);
 		add(lblEnterGamename);
 
 		gameNameTextField = new JTextField();
@@ -52,15 +52,15 @@ public class StartGamePanel extends JPanel {
 		gameNameTextField.setColumns(10);
 		
 		lblChooseOpponent = new JLabel("3. Choose opponent");
-		lblChooseOpponent.setBounds(273, 40, 126, 16);
+		lblChooseOpponent.setBounds(314, 40, 126, 16);
 		add(lblChooseOpponent);
 		
 		btnCreate = new JButton("Create");
-		btnCreate.setBounds(271, 148, 117, 29);
+		btnCreate.setBounds(314, 148, 117, 29);
 		add(btnCreate);
 		
 		lblPushFinishbutton = new JLabel("4. Push start-button");
-		lblPushFinishbutton.setBounds(273, 122, 227, 16);
+		lblPushFinishbutton.setBounds(314, 122, 227, 16);
 		add(lblPushFinishbutton);
 		
 		btnCancel = new JButton("Cancel");
@@ -81,7 +81,7 @@ public class StartGamePanel extends JPanel {
 
 	public void setUserInCombobox (ArrayList<User> users){
 		for (User u: users) {
-			comboBox.addItem(u.getId()+" "+u.getUsername());
+			comboBox.addItem(u.getUsername());
 		}
 	}
 

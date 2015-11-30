@@ -64,4 +64,20 @@ public class ServerConnection {
 
         return message;
     }
+
+    public String put(String json, String path){
+
+        String message = "";
+
+        Client client = Client.create();
+
+        WebResource webResource = client.resource(getHostAddress() + ":" + getPort() + "/api/" + path);
+        ClientResponse response = webResource.type("application/json").put(ClientResponse.class, json);
+
+        if (response != null){
+            message = response.getEntity(String.class);
+        }
+
+        return message;
+    }
 }
