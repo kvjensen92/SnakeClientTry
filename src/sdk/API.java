@@ -7,6 +7,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import sun.org.mozilla.javascript.internal.json.JsonParser;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -94,5 +95,9 @@ public class API {
             return hashMap.get("message");
     }
 
-   // public ArrayList<>
+    public ArrayList<Score> getHighscores() {
+        String data = serverConnection.get("Highscores/");
+        return new Gson().fromJson(data, new TypeToken<ArrayList<Score>>() {
+        }.getType());
+    }
 }

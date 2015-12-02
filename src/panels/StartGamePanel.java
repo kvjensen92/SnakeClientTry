@@ -30,11 +30,11 @@ public class StartGamePanel extends JPanel {
 		setLayout(null);
 		
 		lblEnterSnakeDirections = new JLabel("2. Enter snake directions (W,A,S,D)");
-		lblEnterSnakeDirections.setBounds(38, 122, 220, 16);
+		lblEnterSnakeDirections.setBounds(34, 122, 220, 16);
 		add(lblEnterSnakeDirections);
 		
 		controlTextfield = new JTextField();
-		controlTextfield.setBounds(34, 147, 134, 28);
+		controlTextfield.setBounds(34, 140, 134, 28);
 		add(controlTextfield);
 		controlTextfield.setColumns(10);
 		
@@ -47,7 +47,7 @@ public class StartGamePanel extends JPanel {
 		add(lblEnterGamename);
 
 		gameNameTextField = new JTextField();
-		gameNameTextField.setBounds(31, 58, 134, 28);
+		gameNameTextField.setBounds(34, 58, 134, 28);
 		add(gameNameTextField);
 		gameNameTextField.setColumns(10);
 		

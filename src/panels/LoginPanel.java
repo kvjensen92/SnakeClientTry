@@ -14,6 +14,7 @@ public class LoginPanel extends JPanel {
 	private JTextField textField;
 	private JPasswordField passwordField;
 	private JButton btnLogin;
+	private JLabel lblSnakePicture;
 
 	/**
 	 * Create the panel.
@@ -47,10 +48,10 @@ public class LoginPanel extends JPanel {
 		btnLogin.setBounds(35, 218, 93, 29);
 		add(btnLogin);
 		
-		JLabel lblNewLabel = new JLabel("New label");
-		lblNewLabel.setIcon(new ImageIcon(LoginPanel.class.getResource("/image/Snake.png")));
-		lblNewLabel.setBounds(179, 65, 265, 152);
-		add(lblNewLabel);
+		lblSnakePicture = new JLabel("New label");
+		lblSnakePicture.setIcon(new ImageIcon(LoginPanel.class.getResource("/image/Snake.png")));
+		lblSnakePicture.setBounds(179, 65, 265, 152);
+		add(lblSnakePicture);
 
 	}
 	

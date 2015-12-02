@@ -16,6 +16,7 @@ public class Logic {
 	private ArrayList<User> users;
 	private ArrayList<Game> games;
 	private ArrayList<Game> deleteGames;
+	private ArrayList<Score> showHighscores;
 
 	public Logic(){
 		screen = new Screen();
@@ -209,6 +210,7 @@ public class Logic {
 
 				case "Highscore":
 					screen.show("highscore");
+					screen.getHighscorePanel().setTableshowHighscore(api.getHighscores());
 
 					break;
 
