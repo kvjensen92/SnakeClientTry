@@ -73,4 +73,8 @@ public class FindGamePanel extends JPanel {
 	public String getDirectionsTextfield() {
 		return directionsTextfield.getText();
 	}
+
+	public void clearTextFields() {
+		directionsTextfield.setText("");
+	}
 }

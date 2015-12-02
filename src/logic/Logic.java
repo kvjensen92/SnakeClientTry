@@ -192,13 +192,14 @@ public class Logic {
 					screen.show("start game");
 					users = api.getUsers();
 					screen.getStartGamePanel().setUserInCombobox(users);
+					screen.getStartGamePanel().clearTextFields();
 					break;
 
 				case "Find game":
 					screen.show("find game");
 					games = api.getGames(currentUser.getId());
 					screen.getFindGamePanel().setGamesInCombobox(games);
-
+					screen.getFindGamePanel().clearTextFields();
 					break;
 
 				case "Delete game":
