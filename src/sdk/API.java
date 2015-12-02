@@ -79,4 +79,18 @@ public class API {
             return startGame.getWinner().getId()+ "";
         }
     }
+
+    public ArrayList<Game> getGamesToDelete(int id) {
+        String data = serverConnection.get("games/host/" + id);
+        return new Gson().fromJson(data, new TypeToken<ArrayList<Game>>() {
+        }.getType());
+
+    }
+
+    public String deleteGame(int gameId) {
+        String data = serverConnection.delete("games/" + gameId);
+        HashMap<String, String> hashMap = new Gson().fromJson(data, HashMap.class);
+
+            return hashMap.get("message");
+    }
 }

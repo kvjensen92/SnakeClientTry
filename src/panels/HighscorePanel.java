@@ -1,8 +1,6 @@
 package panels;
 
-import javax.swing.JPanel;
-import javax.swing.JButton;
-import javax.swing.JLabel;
+import javax.swing.*;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 
@@ -24,6 +22,7 @@ public class HighscorePanel extends JPanel {
 		lblHighscore.setFont(new Font("Lucida Grande", Font.BOLD, 13));
 		lblHighscore.setBounds(190, 6, 101, 16);
 		add(lblHighscore);
+
 	}
 
 	public void addActionListener(ActionListener e){

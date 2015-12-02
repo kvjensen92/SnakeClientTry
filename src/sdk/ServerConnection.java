@@ -80,4 +80,20 @@ public class ServerConnection {
 
         return message;
     }
+
+    public String delete(String path) {
+        String message = "";
+
+
+        Client client = Client.create();
+
+        WebResource webResource = client.resource(getHostAddress() + ":" + getPort() + "/api/" + path);
+        ClientResponse response = webResource.type("application/json").delete(ClientResponse.class);
+
+        if (response != null){
+            message = response.getEntity(String.class);
+        }
+
+        return message;
+    }
 }

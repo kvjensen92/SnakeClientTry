@@ -32,12 +32,12 @@ public class FindGamePanel extends JPanel {
 		btnCancel.setBounds(310, 240, 117, 29);
 		add(btnCancel);
 		
-		lblChooseOpponent = new JLabel("1. Choose opponent");
+		lblChooseOpponent = new JLabel("1. Choose a game");
 		lblChooseOpponent.setBounds(40, 70, 175, 16);
 		add(lblChooseOpponent);
 		
 		comboBox = new JComboBox();
-		comboBox.setBounds(40, 85, 52, 27);
+		comboBox.setBounds(40, 85, 150, 27);
 		add(comboBox);
 
 		lblSetGameDirections = new JLabel("2. Set directions (W,A,S,D)");
@@ -59,8 +59,10 @@ public class FindGamePanel extends JPanel {
 	}
 
 	public void setGamesInCombobox (ArrayList<Game> games){
+		comboBox.removeAllItems();
 		for (Game g: games) {
 			comboBox.addItem(g.getName());
+
 		}
 	}
 

@@ -1,9 +1,12 @@
 package panels;
 
+import sdk.Game;
+
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -30,7 +33,7 @@ public class DeleteGamePanel extends JPanel {
 		add(btnCancel);
 		
 		comboBox = new JComboBox();
-		comboBox.setBounds(40, 105, 52, 27);
+		comboBox.setBounds(40, 105, 150, 27);
 		add(comboBox);
 		
 		JLabel lblChoseAGame = new JLabel("Chose a game to delete");
@@ -43,5 +46,22 @@ public class DeleteGamePanel extends JPanel {
 	}
 	public void addActionListener(ActionListener e){
 		btnCancel.addActionListener(e);
+		btnDeleteGame.addActionListener(e);
+	}
+
+	public void setGamesInCombobox (ArrayList<Game> games){
+		comboBox.removeAllItems();
+		for (Game g: games) {
+			comboBox.addItem(g.getName());
+
+		}
+	}
+
+	public void removeGame (){
+		comboBox.removeItemAt(comboBox.getSelectedIndex());
+	}
+
+	public String getSelectedGame(){
+		return (String) comboBox.getSelectedItem();
 	}
 }

@@ -15,6 +15,7 @@ public class Logic {
 	private API api;
 	private ArrayList<User> users;
 	private ArrayList<Game> games;
+	private ArrayList<Game> deleteGames;
 
 	public Logic(){
 		screen = new Screen();
@@ -40,6 +41,24 @@ public class Logic {
 				case "Cancel":
 					screen.show("menu");
 					break;
+
+				case "Delete game":
+					Game deleteGame = new Game();
+					deleteGame.setName(screen.getDeleteGamePanel().getSelectedGame());
+					for (Game g: deleteGames)
+					{
+						if (g.getName().equals(screen.getDeleteGamePanel().getSelectedGame()))
+						{
+							deleteGame = g;
+						}
+					}
+					String message = api.deleteGame(deleteGame.getGameId());
+					JOptionPane.showMessageDialog(screen, message);
+					if (message.equals("Game was deleted")) {
+						screen.getDeleteGamePanel().removeGame();
+					}
+					break;
+
 			}
 		}
 
@@ -55,11 +74,15 @@ public class Logic {
 					break;
 				case "Start game":
 					Game startGame = new Game();
-					for (Game g: games){
-						if (g.getName().equals(screen.getFindGamePanel().getSelectedGame())){
+
+					for (Game g: games)
+					{
+						if (g.getName().equals(screen.getFindGamePanel().getSelectedGame()))
+						{
 							startGame = g;
 						}
 					}
+
 					Gamer opponent = new Gamer();
 					opponent.setId(currentUser.getId());
 					opponent.setControls(screen.getFindGamePanel().getDirectionsTextfield());
@@ -68,13 +91,19 @@ public class Logic {
 					String startGamemessage = api.startGame(startGame);
 					System.out.println(startGamemessage);
 					String winnerName = "";
-					for (User u: users){
-						//TODO exception
-					if (u.getId() == Integer.parseInt(startGamemessage)){
-						winnerName = u.getUsername();
+
+					for (User u: users)
+					{
+						try {
+							if (u.getId() == Integer.parseInt(startGamemessage))
+							{
+								winnerName = u.getUsername();
+							}
+						} catch (NumberFormatException e1) {
+							e1.printStackTrace();
+						}
 					}
-				}
-					JOptionPane.showMessageDialog(screen, joinGamemessage+ ". The winner was:" +winnerName);
+					JOptionPane.showMessageDialog(screen, joinGamemessage + ". The winner was:" + winnerName);
 					break;
 			}
 
@@ -132,8 +161,11 @@ public class Logic {
 					host.setControls(screen.getStartGamePanel().getControlsToSnake());
 					startGame.setHost(host);
 					Gamer opponent = new Gamer();
-					for (User u: users){
-						if (u.getUsername().equals(screen.getStartGamePanel().getSelectedUSer())){
+
+					for (User u: users)
+					{
+						if (u.getUsername().equals(screen.getStartGamePanel().getSelectedUSer()))
+						{
 							opponent.setId(u.getId());
 						}
 					}
@@ -170,6 +202,8 @@ public class Logic {
 
 				case "Delete game":
 					screen.show("delete game");
+					deleteGames = api.getGamesToDelete(currentUser.getId());
+					screen.getDeleteGamePanel().setGamesInCombobox(deleteGames);
 
 					break;
 

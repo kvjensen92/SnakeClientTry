@@ -80,6 +80,7 @@ public class StartGamePanel extends JPanel {
 	}
 
 	public void setUserInCombobox (ArrayList<User> users){
+		comboBox.removeAllItems();
 		for (User u: users) {
 			comboBox.addItem(u.getUsername());
 		}
