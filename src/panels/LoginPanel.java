@@ -48,7 +48,7 @@ public class LoginPanel extends JPanel {
 		add(btnLogin);
 		
 		JLabel lblNewLabel = new JLabel("New label");
-		lblNewLabel.setIcon(new ImageIcon("/Users/Kasper/Desktop/Loginscreen/Snake.png"));
+		lblNewLabel.setIcon(new ImageIcon(LoginPanel.class.getResource("/image/Snake.png")));
 		lblNewLabel.setBounds(179, 65, 265, 152);
 		add(lblNewLabel);
 
