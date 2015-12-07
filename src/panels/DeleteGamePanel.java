@@ -48,7 +48,7 @@ public class DeleteGamePanel extends JPanel {
 		btnCancel.addActionListener(e);
 		btnDeleteGame.addActionListener(e);
 	}
-
+// Tilføjer de oprettede spil, så man kan vælge hvilket spil der skal slettes.
 	public void setGamesInCombobox (ArrayList<Game> games){
 		comboBox.removeAllItems();
 		for (Game g: games) {

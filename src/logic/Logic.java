@@ -23,7 +23,7 @@ public class Logic {
 		currentUser = new User();
 		api = new API();
 	}
-
+	// Kører programmet, når main-klassen køres
 	public void run(){
 		screen.getDeleteGamePanel().addActionListener(new DeleteGameActionHandler());
 		screen.getFindGamePanel().addActionListener(new FindGameActionHandler());
@@ -33,7 +33,7 @@ public class Logic {
 		screen.getMenu().addActionListener(new MenuPanelActionHandler());
 
 	}
-
+	// ActionsListeners for DeleteGame-menuen
 	private class DeleteGameActionHandler implements ActionListener{
 
 		@Override
@@ -53,6 +53,7 @@ public class Logic {
 							deleteGame = g;
 						}
 					}
+	// Besked om at spillet er slettet
 					String message = api.deleteGame(deleteGame.getGameId());
 					JOptionPane.showMessageDialog(screen, message);
 					if (message.equals("Game was deleted")) {
@@ -64,7 +65,7 @@ public class Logic {
 		}
 
 	}
-
+	// ActionsListeners for FindGame-menuen
 	private class FindGameActionHandler implements ActionListener{
 
 		@Override
@@ -73,45 +74,53 @@ public class Logic {
 				case "Cancel":
 					screen.show("menu");
 					break;
-				case "Start game":
-					Game startGame = new Game();
 
+				case "Start game":
+					Game startGame = null;
+	// 1. if tjekker værdien af hvad der er valgt i comboBoxen og sammenligner med de spil som for-loopet kører igennem
+	// 2. if gør så hosten ikke kan joine sit eget spil
 					for (Game g: games)
 					{
 						if (g.getName().equals(screen.getFindGamePanel().getSelectedGame()))
 						{
-							startGame = g;
+							if (g.getHost().getId() != currentUser.getId())
+								startGame = g;
 						}
 					}
+					if (startGame != null) {
 
-					Gamer opponent = new Gamer();
-					opponent.setId(currentUser.getId());
-					opponent.setControls(screen.getFindGamePanel().getDirectionsTextfield());
-					startGame.setOpponent(opponent);
-					String joinGamemessage = api.joinGame(startGame);
-					String startGamemessage = api.startGame(startGame);
-					System.out.println(startGamemessage);
-					String winnerName = "";
+						Gamer opponent = new Gamer();
+						opponent.setId(currentUser.getId());
+						opponent.setControls(screen.getFindGamePanel().getDirectionsTextfield());
+						startGame.setOpponent(opponent);
+						String joinGamemessage = api.joinGame(startGame);
+						String startGamemessage = api.startGame(startGame);
+						System.out.println(startGamemessage);
+						String winnerName = "";
 
-					for (User u: users)
-					{
-						try {
-							if (u.getId() == Integer.parseInt(startGamemessage))
-							{
-								winnerName = u.getUsername();
+						for (User u : users) {
+
+							try {
+
+								if (u.getId() == Integer.parseInt(startGamemessage)) {
+									winnerName = u.getUsername();
+								}
+							} catch (NumberFormatException e1) {
+								e1.printStackTrace();
 							}
-						} catch (NumberFormatException e1) {
-							e1.printStackTrace();
 						}
+
+						JOptionPane.showMessageDialog(screen, joinGamemessage + ". The winner was:" + winnerName);
+					} else {
+						JOptionPane.showMessageDialog(screen, "You can't join a game where you're the host");
 					}
-					JOptionPane.showMessageDialog(screen, joinGamemessage + ". The winner was:" + winnerName);
 					break;
 			}
 
 		}
 
 	}
-
+	// ActionListener for Highscore-menuen
 	private class HighscoreActionHandler implements ActionListener{
 
 		@Override
@@ -123,7 +132,7 @@ public class Logic {
 			}
 		}
 	}
-
+	// ActionsListeners for Login-menuen
 	private class LoginPanelActionHandler implements ActionListener{
 
 		@Override
@@ -140,7 +149,7 @@ public class Logic {
 
 
 	}
-
+	// ActionsListeners for StartGame-menuen
 	private class StartGameActionHandler implements ActionListener{
 
 		@Override
@@ -157,12 +166,9 @@ public class Logic {
 					Game startGame = new Game();
 					startGame.setName(screen.getStartGamePanel().getGameName());
 					startGame.setMapSize(25);
-					Gamer host = new Gamer();
-					host.setId(currentUser.getId());
-					host.setControls(screen.getStartGamePanel().getControlsToSnake());
-					startGame.setHost(host);
 					Gamer opponent = new Gamer();
-
+	// For-loop kører brugerne igennem og viser dem i en comboBox
+	// 1. if tjekker værdien af hvad der er valgt i comboBoxen og sammenligner med de brugere som for-loopet kører igennem
 					for (User u: users)
 					{
 						if (u.getUsername().equals(screen.getStartGamePanel().getSelectedUSer()))
@@ -170,11 +176,20 @@ public class Logic {
 							opponent.setId(u.getId());
 						}
 					}
+	// If tjekker om hosten vil udfordre sig selv og giver fejlmeddelelse og ellers er spillet oprettet.
+					if (opponent.getId() == currentUser.getId()) {
+						JOptionPane.showMessageDialog(screen, "Error: You need to choose a different opponent than yourself");
+					} else {
+						Gamer host = new Gamer();
+						host.setId(currentUser.getId());
+						host.setControls(screen.getStartGamePanel().getControlsToSnake());
+						startGame.setHost(host);
 
-					startGame.setOpponent(opponent);
-					String message = api.createGame(startGame);
-					JOptionPane.showMessageDialog(screen, message);
-					screen.show("menu");
+						startGame.setOpponent(opponent);
+						String message = api.createGame(startGame);
+						JOptionPane.showMessageDialog(screen, message);
+						screen.show("menu");
+					}
 					break;
 
 			}
@@ -182,7 +197,7 @@ public class Logic {
 		}
 
 	}
-
+	// ActionListener for Menuen
 	private class MenuPanelActionHandler implements ActionListener{
 
 		@Override

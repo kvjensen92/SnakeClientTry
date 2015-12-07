@@ -15,6 +15,8 @@ public class API {
 
     ServerConnection serverConnection = new ServerConnection();
 
+    //Metode til at logge ind.
+    //Sender data til serveren via post
     public String login(User user) {
         String data = serverConnection.post(new Gson().toJson(user), "login/");
 
@@ -39,6 +41,8 @@ public class API {
         return "";
     }
 
+    //Arrayliste med brugere
+    //Bruger get til at få data fra serveren
     public ArrayList<User> getUsers() {
         String data = serverConnection.get("users/");
         return new Gson().fromJson(data, new TypeToken<ArrayList<User>>() {
@@ -46,13 +50,16 @@ public class API {
 
     }
 
+    //Metode til at starte et nyt spil som host
+    //Bruger post til at sende data til serveren
     public String createGame(Game game) {
         String data = serverConnection.post(new Gson().toJson(game), "games/");
         HashMap<String, String> hashMap = new Gson().fromJson(data, HashMap.class);
 
         return hashMap.get("message");
     }
-
+    //Arrayliste med spil
+    //Bruger get til at få data fra serveren
     public ArrayList<Game> getGames(int userID) {
         String data = serverConnection.get("games/pending/" + userID);
         return new Gson().fromJson(data, new TypeToken<ArrayList<Game>>() {
@@ -60,6 +67,8 @@ public class API {
 
     }
 
+    //Metode til at brugere kan joine et allerede oprettet spil
+    //Bruger put til at kommunikere serveren omkring hvilke spil der kan joines
     public String joinGame(Game startGame) {
         String data = serverConnection.put(new Gson().toJson(startGame), "games/join");
         HashMap<String, String> hashMap = new Gson().fromJson(data, HashMap.class);
@@ -67,6 +76,8 @@ public class API {
         return hashMap.get("message");
     }
 
+    //Metode til at oprette et spil som host
+    //Bruger put til at kommunikere med serveren omkring de spil der bliver oprettet
     public String startGame(Game startGame) {
         String data = serverConnection.put(new Gson().toJson(startGame), "games/start");
         HashMap<String, String> hashMap = new Gson().fromJson(data, HashMap.class);
@@ -81,13 +92,16 @@ public class API {
         }
     }
 
+    //Arrayliste med spil der kan slettes
+    //Bruger get til at få data fra serveren
     public ArrayList<Game> getGamesToDelete(int id) {
         String data = serverConnection.get("games/host/" + id);
         return new Gson().fromJson(data, new TypeToken<ArrayList<Game>>() {
         }.getType());
 
     }
-
+    //Metode til at slette oprettede spil
+    //Benytter en delete til at fortælle serveren det skal slettes
     public String deleteGame(int gameId) {
         String data = serverConnection.delete("games/" + gameId);
         HashMap<String, String> hashMap = new Gson().fromJson(data, HashMap.class);
@@ -95,6 +109,8 @@ public class API {
             return hashMap.get("message");
     }
 
+    //Arrayliste med de scores der er blevet givet
+    //Benytter en get til at få dataen fra serveren
     public ArrayList<Score> getHighscores() {
         String data = serverConnection.get("Highscores/");
         return new Gson().fromJson(data, new TypeToken<ArrayList<Score>>() {

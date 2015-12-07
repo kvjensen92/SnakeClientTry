@@ -57,7 +57,7 @@ public class FindGamePanel extends JPanel {
 		btnCancel.addActionListener(e);
 		btnStartGame.addActionListener(e);
 	}
-
+// Tilføjer de oprettede spil i en comboBox, så man kan joine dem.
 	public void setGamesInCombobox (ArrayList<Game> games){
 		comboBox.removeAllItems();
 		for (Game g: games) {

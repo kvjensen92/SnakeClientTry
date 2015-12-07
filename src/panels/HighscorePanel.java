@@ -45,7 +45,7 @@ public class HighscorePanel extends JPanel {
 		tableshowHighscore.setModel(highscoreTableModel);
 	}
 
-
+// Opsætning af JTable til visning af highscores
 	private class HighscoreTableModel extends AbstractTableModel
 	{
 		private static final long serialVersionUID = 1L;

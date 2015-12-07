@@ -78,7 +78,7 @@ public class StartGamePanel extends JPanel {
 		btnCreate.addActionListener(e);
 		btnCancel.addActionListener(e);
 	}
-
+// Tilføjer brugere i comboBox, så hosten kan vælge sin modstander
 	public void setUserInCombobox(ArrayList<User> users) {
 		comboBox.removeAllItems();
 		for (User u : users) {
@@ -98,7 +98,7 @@ public class StartGamePanel extends JPanel {
 		return controlTextfield.getText();
 	}
 
-
+// Fjerner teksten fra tekstfelterne
 	public void clearTextFields() {
 		gameNameTextField.setText("");
 		controlTextfield.setText("");
